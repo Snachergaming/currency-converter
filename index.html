@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url("https://static.vecteezy.com/system/resources/previews/033/692/798/non_2x/hundred-dollar-bills-on-wooden-floor-3d-render-illustration-money-and-dollar-bills-are-spread-out-on-the-table-ai-generated-free-photo.jpg"); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+          
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        h1 {
+            color: #4CAF50;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            background-color: rgba(109, 99, 99, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        select:focus, input:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.4);
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            background-color: #f0f8f5;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .result h2 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .result p {
+            font-size: 18px;
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            select, input, button {
+                font-size: 14px;
+            }
+
+            .result h2 {
+                font-size: 20px;
+            }
+
+            .result p {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body style="background-image: url('https://static.vecteezy.com/system/resources/previews/033/692/798/non_2x/hundred-dollar-bills-on-wooden-floor-3d-render-illustration-money-and-dollar-bills-are-spread-out-on-the-table-ai-generated-free-photo.jpg');">
+    <div class="container">        <h1>Currency Converter</h1>
+        <form method="POST">
+            <input type="number" name="amount" placeholder="Amount" step="0.01" required>
+            <select name="from_currency" required>
+                {% for currency, rate in currencies.items() %}
+                    <option value="{{ currency }}">{{ currency }} (Rate: {{ rate }})</option>
+                {% endfor %}
+            </select>
+            <select name="to_currency" required>
+                {% for currency, rate in currencies.items() %}
+                    <option value="{{ currency }}">{{ currency }} (Rate: {{ rate }})</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Convert</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>{{ result }}</h2>
+                {% if conversion_rate %}
+                    <p>Conversion Rate: {{ '{:.2f}'.format(conversion_rate) }}</p>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
